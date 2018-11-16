@@ -4,4 +4,6 @@
     <string name="request_money">Request Money</string>
     <string name="scan_qr">Scan QR</string>
     <string name="send_money">Send Money</string>
+    <string name="no_internet">No Internet</string>
+    <string name="dismiss">Dismiss</string>
 </resources>

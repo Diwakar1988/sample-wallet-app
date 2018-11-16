@@ -1,6 +1,8 @@
 package com.github.diwakar1988.noon.net;
 
+import android.content.Intent;
 import android.os.Build;
+import android.support.v4.content.LocalBroadcastManager;
 import android.util.Log;
 
 import com.github.diwakar1988.noon.BuildConfig;
@@ -56,7 +58,9 @@ public class ClientConfigurationService extends BaseApiService<ClientConfigurati
                 Log.d(ClientConfigurationService.class.getSimpleName(),"***** ClientConfigurationService failed, ERROR="+e);
                 //loadFromServer default/local one
                 ClientConfigurations localConfig=AppPreferences.getInstance().getConfigurations();
-                listener.onClientConfigurationsLoaded(localConfig);
+                if (listener!=null){
+                    listener.onClientConfigurationsLoaded(localConfig);
+                }
             }
 
             @Override
@@ -64,7 +68,10 @@ public class ClientConfigurationService extends BaseApiService<ClientConfigurati
                 Log.d(ClientConfigurationService.class.getSimpleName(),"***** ClientConfigurationService Success");
                 //save fetched configs in db for later use
                 AppPreferences.getInstance().saveConfigurations(response);
-                listener.onClientConfigurationsLoaded(response);
+                LocalBroadcastManager.getInstance(NoonApplication.getInstance()).sendBroadcast(new Intent(ClientConfigReceiver.ACTION_CONFIG_UPDATED));
+                if (listener!=null){
+                    listener.onClientConfigurationsLoaded(response);
+                }
             }
         });
     }

@@ -6,4 +6,5 @@
     <color name="blue">#3364FF</color>
     <color name="title">#404553</color>
     <color name="gray">#EAEBEA</color>
+    <color name="description">#bdbdbd</color>
 </resources>

@@ -27,32 +27,6 @@
     ]
   },
     {
-      "type": "carousel",
-      "title": "Offer banners",
-      "description": "Offer banners carousel",
-      "actions": [{
-        "id": 1,
-        "title": "Upto 50% Off Holiday Shop",
-        "description": "Get upto 50% Off when you pay with noonPay app",
-        "icon": "url",
-        "hasOffer": false
-      },
-        {
-          "id": 2,
-          "title": "Upto 60% Off Holiday Shop",
-          "description": "Get upto 60% Off when you pay with noonPay app",
-          "icon": "url",
-          "hasOffer": false
-        },
-        {
-          "title": "Upto 70% Off Holiday Shop",
-          "description": "Get upto 70% Off when you pay with noonPay app",
-          "icon": "url",
-          "hasOffer": false
-        }
-      ]
-    },
-    {
       "type": "list",
       "title": "Buy on noonPay",
       "description": "e-Vouchers and re-charge cards at your fingertips",
