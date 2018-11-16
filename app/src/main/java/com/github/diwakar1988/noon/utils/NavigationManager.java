@@ -25,7 +25,7 @@ public class NavigationManager {
 
     public static NavigationManager getInstance() {
         if (activity==null){
-            throw new IllegalStateException("NavigationManager.initialize() should be called before calling getInstance()");
+            throw new IllegalStateException("NavigationManager.load() should be called before calling getInstance()");
         }
         return mInstance;
     }

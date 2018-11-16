@@ -4,7 +4,7 @@ import android.app.Application;
 import android.util.Log;
 
 import com.github.diwakar1988.noon.utils.AsyncUtil;
-import com.github.diwakar1988.noon.utils.CountryFlagUtils;
+import com.github.diwakar1988.noon.utils.CountryUtils;
 
 /**
  * Created by 'Diwakar Mishra' on 16,November,2018
@@ -29,10 +29,10 @@ public class NoonApplication extends Application {
             @Override
             public void run() {
                 try {
-                    CountryFlagUtils.initialize(instance);
-                    Log.d(NoonApplication.class.getSimpleName(),"**** country flags loaded.");
+                    CountryUtils.load(instance);
+                    Log.d(NoonApplication.class.getSimpleName(),"**** countries data loaded.");
                 } catch (Exception e) {
-                    Log.d(NoonApplication.class.getSimpleName(),"**** country flag loading failed.");
+                    Log.d(NoonApplication.class.getSimpleName(),"**** countries data loading failed.");
                 }
             }
         });
