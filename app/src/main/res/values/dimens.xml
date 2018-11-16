@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="size_action_icons">36dp</dimen>
+    <dimen name="size_toolbar_action_icons">24dp</dimen>
+    <dimen name="text_size_small">10sp</dimen>
+    <dimen name="text_size_icon">11sp</dimen>
+    <dimen name="text_size_title">14sp</dimen>
+    <dimen name="text_size_description">12sp</dimen>
+</resources>
