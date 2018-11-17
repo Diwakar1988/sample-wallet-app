@@ -15,12 +15,10 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.github.diwakar1988.noon.R;
 import com.github.diwakar1988.noon.common.NoonFragment;
 import com.github.diwakar1988.noon.databinding.FragmentHomeBinding;
-import com.github.diwakar1988.noon.databinding.UploadNationalIdBinding;
 import com.github.diwakar1988.noon.db.AppPreferences;
 import com.github.diwakar1988.noon.net.ClientConfigReceiver;
 import com.github.diwakar1988.noon.pojo.ClientConfigurations;
@@ -28,7 +26,7 @@ import com.github.diwakar1988.noon.pojo.ClientConfigurations;
 /**
  * Created by 'Diwakar Mishra' on 16,November,2018
  */
-public class HomeFragment extends NoonFragment implements View.OnClickListener{
+public class HomeFragment extends NoonFragment{
     public static HomeFragment newInstance(){
         return new HomeFragment();
     }
@@ -58,10 +56,7 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
             //national id already uploaded, don't show upload view
             return;
         }
-        UploadNationalIdBinding uploadBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.upload_national_id, null, false);
-        uploadBinding.uploadNow.setOnClickListener(this);
-        uploadBinding.nextIcon.setOnClickListener(this);
-        sectionsAdapter.addHeader(uploadBinding.getRoot());
+        sectionsAdapter.setHeaderView(R.layout.upload_national_id);
     }
 
     @Nullable
@@ -103,15 +98,5 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
         binding.sections.setAdapter(null);
         binding.unbind();
         binding=null;
-    }
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId()==R.id.upload_now){
-            Toast.makeText(getContext(), "Upload now Clicked", Toast.LENGTH_SHORT).show();
-        }else if (v.getId()==R.id.next_icon){
-            Toast.makeText(getContext(), "Next Icon Clicked", Toast.LENGTH_SHORT).show();
-        }
-
     }
 }

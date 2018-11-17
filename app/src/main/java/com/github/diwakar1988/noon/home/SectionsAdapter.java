@@ -6,11 +6,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.diwakar1988.noon.R;
 import com.github.diwakar1988.noon.common.NoonViewHolder;
 import com.github.diwakar1988.noon.databinding.HomePageCarouselSectionItemBinding;
 import com.github.diwakar1988.noon.databinding.HomePageListSectionItemBinding;
+import com.github.diwakar1988.noon.databinding.UploadNationalIdBinding;
 import com.github.diwakar1988.noon.pojo.Section;
 
 import java.util.ArrayList;
@@ -24,7 +26,7 @@ public class SectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     private static final int TYPE_CAROUSEL=1;
     private static final int TYPE_LIST=2;
     private List<Section> sections;
-    private View headerView;
+    private int headerViewResId=-1;
 
     public SectionsAdapter(List<Section> sections) {
         this.sections = sections;
@@ -33,16 +35,16 @@ public class SectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         }
     }
 
-    public void addHeader(View headerView) {
-        this.headerView = headerView;
+    public void setHeaderView(int headerViewResId) {
+        this.headerViewResId = headerViewResId;
     }
 
-    public View getHeaderView() {
-        return headerView;
+    public int getHeaderViewResId() {
+        return headerViewResId;
     }
 
-    public boolean isHavingHeader() {
-        return headerView!=null;
+    public boolean isHavingHeaderView() {
+        return headerViewResId >0;
     }
     public void setSections(List<Section> sections) {
         this.sections.clear();
@@ -60,18 +62,14 @@ public class SectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             HomePageListSectionItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.home_page_list_section_item, parent, false);
             return new ListSectionViewHolder(binding);
         }
-        return new RecyclerView.ViewHolder(headerView) {
-            @Override
-            public String toString() {
-                return super.toString();
-            }
-        };
+        UploadNationalIdBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), getHeaderViewResId(), parent, false);
+        return new HeaderViewHolder(binding);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         if (holder instanceof NoonViewHolder){
-            if (isHavingHeader()){
+            if (isHavingHeaderView()){
                 position-=1;
             }
             ((NoonViewHolder<Section>)holder).bind(sections.get(position));
@@ -89,7 +87,7 @@ public class SectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public int getItemCount() {
         int count = sections.size();
-        if (isHavingHeader()){
+        if (isHavingHeaderView()){
             count++;
         }
         return count;
@@ -97,10 +95,10 @@ public class SectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemViewType(int position) {
-        if (position==0 && isHavingHeader()){
+        if (position==0 && isHavingHeaderView()){
             return TYPE_HEADER;
         }
-        if (isHavingHeader()){
+        if (isHavingHeaderView()){
             position-=1;
         }
         if (sections.get(position).isCarousel()){
@@ -131,6 +129,24 @@ public class SectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         @Override
         public void unbind() {
             binding.getSectionVM().clean();
+        }
+    }
+    public static class HeaderViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private UploadNationalIdBinding binding;
+        public HeaderViewHolder(UploadNationalIdBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.uploadNow.setOnClickListener(this);
+            this.binding.nextIcon.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            if (v.getId()==R.id.upload_now){
+                Toast.makeText(v.getContext(), "Upload now Clicked", Toast.LENGTH_SHORT).show();
+            }else if (v.getId()==R.id.next_icon){
+                Toast.makeText(v.getContext(), "Next Icon Clicked", Toast.LENGTH_SHORT).show();
+            }
         }
     }
     public static class ListSectionViewHolder extends NoonViewHolder<Section>{
