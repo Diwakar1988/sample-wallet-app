@@ -39,7 +39,7 @@ public class ListSectionVM extends NoonViewModel<Section> implements ItemClickLi
         return listAdapter;
     }
 
-    @BindingAdapter("noon:adapter")
+    @BindingAdapter("adapter")
     public static void setAdapter(RecyclerView rv, SectionActionAdapter adapter) {
         if (rv.getLayoutManager()==null){
             rv.setLayoutManager(new LinearLayoutManager(rv.getContext(),LinearLayoutManager.HORIZONTAL,false));

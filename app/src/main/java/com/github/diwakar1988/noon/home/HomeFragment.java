@@ -33,7 +33,6 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
         return new HomeFragment();
     }
     private FragmentHomeBinding binding;
-    private ToolbarActionsAdapter toolbarActionsAdapter;
     private SectionsAdapter sectionsAdapter;
     private ClientConfigReceiver configReceiver = new ClientConfigReceiver() {
         @Override
@@ -76,13 +75,6 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.collapsingToolbar.setScrimAnimationDuration(0);
-        binding.profileImage.setOnClickListener(this);
-        //main actions
-        toolbarActionsAdapter = new ToolbarActionsAdapter(getContext());
-        binding.mainActions.setHasFixedSize(true);
-        binding.mainActions.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
-        binding.mainActions.setAdapter(toolbarActionsAdapter);
 
         //sections list
         binding.sections.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -108,7 +100,6 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
     public void onDestroyView() {
         super.onDestroyView();
         LocalBroadcastManager.getInstance(getContext()).unregisterReceiver(configReceiver);
-        binding.mainActions.setAdapter(null);
         binding.sections.setAdapter(null);
         binding.unbind();
         binding=null;
@@ -116,9 +107,7 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==binding.profileImage.getId()){
-            Toast.makeText(getContext(), "User Profile Clicked", Toast.LENGTH_SHORT).show();
-        }else if (v.getId()==R.id.upload_now){
+        if (v.getId()==R.id.upload_now){
             Toast.makeText(getContext(), "Upload now Clicked", Toast.LENGTH_SHORT).show();
         }else if (v.getId()==R.id.next_icon){
             Toast.makeText(getContext(), "Next Icon Clicked", Toast.LENGTH_SHORT).show();

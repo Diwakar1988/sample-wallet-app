@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:noon="http://schemas.android.com/apk/res-auto"
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <import type="android.view.View" />
@@ -15,14 +15,14 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            noon:adapter="@{sectionVM.sectionActionsAdapter}"/>
+            app:adapter="@{sectionVM.sectionActionsAdapter}"/>
         <android.support.design.widget.TabLayout
             android:id="@+id/tab_layout"
             android:layout_width="match_parent"
             android:layout_height="20dp"
-            noon:tabBackground="@drawable/bg_pager_indicator_dot"
-            noon:tabGravity="center"
-            noon:tabIndicatorHeight="0dp"
+            app:tabBackground="@drawable/bg_pager_indicator_dot"
+            app:tabGravity="center"
+            app:tabIndicatorHeight="0dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="6dp"/>
     </RelativeLayout>

@@ -11,4 +11,9 @@
     <string name="upload_now">Upload Now</string>
     <string name="takes_less_than_1_min">Takes less than 1 min</string>
     <string name="description_upload_national_id">Required by regulatory authorities</string>
+    <string name="home">Home</string>
+    <string name="send">Send</string>
+    <string name="pay_qr">Pay QR</string>
+    <string name="offers">Offers</string>
+    <string name="my_wallet">My Wallet</string>
 </resources>

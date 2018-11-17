@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <dimen name="size_action_icons">36dp</dimen>
     <dimen name="size_toolbar_action_icons">24dp</dimen>
     <dimen name="text_size_small">10sp</dimen>
@@ -7,4 +7,7 @@
     <dimen name="text_size_title">14sp</dimen>
     <dimen name="text_size_description">12sp</dimen>
     <dimen name="height_section_carousel">120dp</dimen>
+    <dimen name="bnv_height">56dp</dimen>
+    <dimen name="design_bottom_navigation_text_size" tools:override="true">10sp</dimen>
+    <dimen name="design_bottom_navigation_active_text_size" tools:override="true">11sp</dimen>
 </resources>

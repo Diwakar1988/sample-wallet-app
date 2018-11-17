@@ -7,4 +7,5 @@
     <color name="title">#404553</color>
     <color name="gray">#EAEBEA</color>
     <color name="description">#bdbdbd</color>
+    <color name="gray_f5">#F5F5F5</color>
 </resources>

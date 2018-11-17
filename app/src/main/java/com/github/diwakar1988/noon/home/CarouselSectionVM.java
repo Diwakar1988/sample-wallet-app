@@ -30,7 +30,7 @@ public class CarouselSectionVM extends NoonViewModel<Section>{
         return listAdapter;
     }
 
-    @BindingAdapter("noon:adapter")
+    @BindingAdapter("adapter")
     public static void setAdapter(ViewPager viewPager, CarouselSectionAdapter adapter) {
         viewPager.setAdapter(adapter);
     }
