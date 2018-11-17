@@ -19,7 +19,6 @@ import com.github.diwakar1988.noon.databinding.FragmentLoginBinding;
 import com.github.diwakar1988.noon.net.APIResponseListener;
 import com.github.diwakar1988.noon.net.ApiServiceException;
 import com.github.diwakar1988.noon.net.LoginService;
-import com.github.diwakar1988.noon.pojo.OTP;
 import com.github.diwakar1988.noon.signup.SignUpFragment;
 import com.github.diwakar1988.noon.utils.KeyboardUtils;
 import com.github.diwakar1988.noon.utils.NavigationManager;
@@ -99,9 +98,7 @@ public class LoginFragment extends NoonFragment implements OnInputChangeListener
             @Override
             public void onSuccess(String response) {
                 hideProgress();
-                //show finger print screen here
-                startActivity(new Intent(getContext(), MainActivity.class));
-                getActivity().finish();
+                askBioMetricAuthentication();
             }
         });
 
@@ -116,5 +113,12 @@ public class LoginFragment extends NoonFragment implements OnInputChangeListener
         } else if (view == binding.tvForgotPassword) {
             Toast.makeText(getContext(), "Forgot Password clicked", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    @Override
+    protected void onDeviceAuthenticationSuccessful() {
+        super.onDeviceAuthenticationSuccessful();
+        startActivity(new Intent(getContext(), MainActivity.class));
+        getActivity().finish();
     }
 }

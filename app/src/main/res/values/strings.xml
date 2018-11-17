@@ -41,4 +41,6 @@
     <string name="didnt_receive">Didn\'t receive the code? <B><font color="black">Resend Code</font></B></string>
     <string name="otp_description">We have sent a 4 digit code to your\nphone number <font color="#000000">******%s</font></string>
     <string name="sending">Sending...</string>
+    <string name="biometric_title">Authenticate</string>
+    <string name="biometric_subtitle">Access your noonPay Wallet</string>
 </resources>
