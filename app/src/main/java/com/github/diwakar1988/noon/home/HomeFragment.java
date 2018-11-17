@@ -15,10 +15,12 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import com.github.diwakar1988.noon.R;
 import com.github.diwakar1988.noon.common.NoonFragment;
 import com.github.diwakar1988.noon.databinding.FragmentHomeBinding;
+import com.github.diwakar1988.noon.databinding.UploadNationalIdBinding;
 import com.github.diwakar1988.noon.db.AppPreferences;
 import com.github.diwakar1988.noon.net.ClientConfigReceiver;
 import com.github.diwakar1988.noon.pojo.ClientConfigurations;
@@ -26,7 +28,7 @@ import com.github.diwakar1988.noon.pojo.ClientConfigurations;
 /**
  * Created by 'Diwakar Mishra' on 16,November,2018
  */
-public class HomeFragment extends NoonFragment {
+public class HomeFragment extends NoonFragment implements View.OnClickListener{
     public static HomeFragment newInstance(){
         return new HomeFragment();
     }
@@ -39,13 +41,29 @@ public class HomeFragment extends NoonFragment {
             super.onReceive(context, intent);
             switch (intent.getAction()){
                 case ACTION_CONFIG_UPDATED:
-                    sectionsAdapter = new SectionsAdapter(AppPreferences.getInstance().getConfigurations().getSections());
-                    binding.sections.setAdapter(sectionsAdapter);
-                    binding.progressBar.setVisibility(View.GONE);
+                    fillSections(AppPreferences.getInstance().getConfigurations());
                     break;
             }
         }
     };
+
+    private void fillSections(ClientConfigurations configurations) {
+        sectionsAdapter = new SectionsAdapter(configurations.getSections());
+        addUploadNationalIdViewIfRequired();
+        binding.sections.setAdapter(sectionsAdapter);
+        binding.progressBar.setVisibility(View.GONE);
+    }
+
+    private void addUploadNationalIdViewIfRequired() {
+        if (AppPreferences.getInstance().getUser().isUploadedNationalId()){
+            //national id already uploaded, don't show upload view
+            return;
+        }
+        UploadNationalIdBinding uploadBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.upload_national_id, null, false);
+        uploadBinding.uploadNow.setOnClickListener(this);
+        sectionsAdapter.addHeader(uploadBinding.getRoot());
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -58,7 +76,7 @@ public class HomeFragment extends NoonFragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         binding.collapsingToolbar.setScrimAnimationDuration(0);
-
+        binding.profileImage.setOnClickListener(this);
         //main actions
         toolbarActionsAdapter = new ToolbarActionsAdapter(getContext());
         binding.mainActions.setHasFixedSize(true);
@@ -66,20 +84,22 @@ public class HomeFragment extends NoonFragment {
         binding.mainActions.setAdapter(toolbarActionsAdapter);
 
         //sections list
-        ClientConfigurations configurations = AppPreferences.getInstance().getConfigurations();
-        if (configurations!=null){
-            sectionsAdapter = new SectionsAdapter(configurations.getSections());
-        }else{
-            sectionsAdapter = new SectionsAdapter(null);
-            binding.progressBar.setVisibility(View.VISIBLE);
-        }
         binding.sections.setLayoutManager(new LinearLayoutManager(getContext()));
         DividerItemDecoration verticalDecoration = new DividerItemDecoration(getContext(),
                 DividerItemDecoration.VERTICAL);
         Drawable verticalDivider = ContextCompat.getDrawable(getActivity(), R.drawable.vertical_divider);
         verticalDecoration.setDrawable(verticalDivider);
         binding.sections.addItemDecoration(verticalDecoration);
-        binding.sections.setAdapter(sectionsAdapter);
+
+        ClientConfigurations configurations = AppPreferences.getInstance().getConfigurations();
+        if (configurations!=null){
+            fillSections(configurations);
+        }else{
+            sectionsAdapter = new SectionsAdapter(null);
+            addUploadNationalIdViewIfRequired();
+            binding.progressBar.setVisibility(View.VISIBLE);
+            binding.sections.setAdapter(sectionsAdapter);
+        }
 
     }
 
@@ -91,5 +111,14 @@ public class HomeFragment extends NoonFragment {
         binding.sections.setAdapter(null);
         binding.unbind();
         binding=null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==binding.profileImage.getId()){
+            Toast.makeText(getContext(), "User Profile Clicked", Toast.LENGTH_SHORT).show();
+        }else if (v.getId()==R.id.upload_now){
+            Toast.makeText(getContext(), "Upload now Clicked", Toast.LENGTH_SHORT).show();
+        }
     }
 }

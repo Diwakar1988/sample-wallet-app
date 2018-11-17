@@ -7,4 +7,8 @@
     <string name="no_internet">No Internet</string>
     <string name="dismiss">Dismiss</string>
     <string name="learn_more">Learn More</string>
+    <string name="title_upload_national_id">Upload your National ID</string>
+    <string name="upload_now">Upload Now</string>
+    <string name="takes_less_than_1_min">Takes less than 1 min</string>
+    <string name="description_upload_national_id">Required by regulatory authorities</string>
 </resources>

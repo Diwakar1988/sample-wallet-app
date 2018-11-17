@@ -18,6 +18,7 @@ public class AppPreferences {
     private static final Gson GSON = new Gson();
 
     protected static final String KEY_CONFIGURATIONS = "settings";
+    protected static final String KEY_USER = "user";
 
     private SharedPreferences preferences;
 
@@ -82,5 +83,25 @@ public class AppPreferences {
             configurations = new Gson().fromJson(str,ClientConfigurations.class);
         }
         return configurations;
+    }
+    public void saveUser(User user){
+        if (user==null){
+            return;
+        }
+        //Encrypt password before saving
+        String str = new Gson().toJson(user,User.class);
+        setString(KEY_USER,str);
+    }
+    public User getUser(){
+        String str = getString(KEY_USER,"");
+        User user;
+        if (TextUtils.isEmpty(str)){
+            user=new User("Default User","","","","");
+            //for demo
+            //user.setUploadedNationalId(true);
+        }else{
+            user = new Gson().fromJson(str,User.class);
+        }
+        return user;
     }
 }

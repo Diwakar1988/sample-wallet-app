@@ -4,6 +4,7 @@ import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.diwakar1988.noon.R;
@@ -18,10 +19,12 @@ import java.util.List;
 /**
  * Created by 'Diwakar Mishra' on 17,November,2018
  */
-public class SectionsAdapter extends RecyclerView.Adapter<NoonViewHolder<Section>>{
+public class SectionsAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+    private static final int TYPE_HEADER = 0;
     private static final int TYPE_CAROUSEL=1;
     private static final int TYPE_LIST=2;
     private List<Section> sections;
+    private View headerView;
 
     public SectionsAdapter(List<Section> sections) {
         this.sections = sections;
@@ -30,6 +33,17 @@ public class SectionsAdapter extends RecyclerView.Adapter<NoonViewHolder<Section
         }
     }
 
+    public void addHeader(View headerView) {
+        this.headerView = headerView;
+    }
+
+    public View getHeaderView() {
+        return headerView;
+    }
+
+    public boolean isHavingHeader() {
+        return headerView!=null;
+    }
     public void setSections(List<Section> sections) {
         this.sections.clear();
         this.sections = sections;
@@ -38,40 +52,61 @@ public class SectionsAdapter extends RecyclerView.Adapter<NoonViewHolder<Section
 
     @NonNull
     @Override
-    public NoonViewHolder<Section> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         if (viewType==TYPE_CAROUSEL){
             HomePageCarouselSectionItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.home_page_carousel_section_item, parent, false);
             return new CarouselSectionViewHolder(binding);
-        }else {
+        }else if (viewType==TYPE_LIST){
             HomePageListSectionItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.home_page_list_section_item, parent, false);
             return new ListSectionViewHolder(binding);
+        }
+        return new RecyclerView.ViewHolder(headerView) {
+            @Override
+            public String toString() {
+                return super.toString();
+            }
+        };
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+        if (holder instanceof NoonViewHolder){
+            if (isHavingHeader()){
+                position-=1;
+            }
+            ((NoonViewHolder<Section>)holder).bind(sections.get(position));
         }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NoonViewHolder<Section> holder, int position) {
-        holder.bind(sections.get(position));
-    }
-
-    @Override
-    public void onViewDetachedFromWindow(@NonNull NoonViewHolder<Section> holder) {
+    public void onViewDetachedFromWindow(@NonNull RecyclerView.ViewHolder holder) {
         super.onViewDetachedFromWindow(holder);
-        holder.unbind();
+        if (holder instanceof NoonViewHolder){
+            ((NoonViewHolder<Section>)holder).unbind();
+        }
     }
 
     @Override
     public int getItemCount() {
-        return sections.size();
+        int count = sections.size();
+        if (isHavingHeader()){
+            count++;
+        }
+        return count;
     }
 
     @Override
     public int getItemViewType(int position) {
+        if (position==0 && isHavingHeader()){
+            return TYPE_HEADER;
+        }
+        if (isHavingHeader()){
+            position-=1;
+        }
         if (sections.get(position).isCarousel()){
             return TYPE_CAROUSEL;
-        }else if (sections.get(position).isList()){
-            return TYPE_LIST;
         }
-        return super.getItemViewType(position);
+        return TYPE_LIST;
     }
 
     public static class CarouselSectionViewHolder extends NoonViewHolder<Section>{
