@@ -4,6 +4,8 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +55,22 @@ public class ValidateOTPFragment extends NoonFragment implements OnInputChangeLi
         binding.submit.setOnClickListener(this);
         binding.resendCode.setOnClickListener(this);
         binding.otpDescription.setText(String.format(getString(R.string.otp_description),signUpData.number.substring(5)));
+        binding.otp.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                enableSignInButtonIfRequired();
+            }
+        });
     }
 
     @Override
@@ -74,12 +92,12 @@ public class ValidateOTPFragment extends NoonFragment implements OnInputChangeLi
     }
 
     private void enableSignInButtonIfRequired() {
-        binding.submit.setEnabled(false);
+        binding.submit.setEnabled(binding.otp.getText().toString().length()==4);
     }
 
     private void validateOTP() {
         showProgress(getString(R.string.validating));
-        String otp="";
+        String otp=binding.otp.getText().toString();
         new ValidateOTPService(otp).execute(new APIResponseListener<String>() {
             @Override
             public void onFail(ApiServiceException e) {

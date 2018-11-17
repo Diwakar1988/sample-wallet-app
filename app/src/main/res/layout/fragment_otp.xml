@@ -59,6 +59,7 @@
             android:textAlignment="center"/>
 
         <com.github.diwakar1988.noon.common.PinEntryEditText
+            android:id="@+id/otp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textCursorDrawable="@color/noon"
@@ -96,7 +97,7 @@
             android:layout_height="@dimen/btn_height"
             android:layout_margin="16dp"
             android:background="@drawable/btn_bg"
-            android:enabled="true"
+            android:enabled="false"
             android:text="@string/submit_code"
             android:textAllCaps="false"
             android:textColor="@android:color/white"

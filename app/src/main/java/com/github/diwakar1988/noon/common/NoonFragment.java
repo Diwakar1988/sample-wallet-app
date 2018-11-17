@@ -125,7 +125,6 @@ public class NoonFragment extends Fragment{
 
         //this method only work whose api level is greater than or equal to Jelly_Bean (16)
         return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && keyguardManager.isKeyguardSecure();
-
         //You can also use keyguardManager.isDeviceSecure(); but it requires API Level 23
 
     }
