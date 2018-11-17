@@ -61,6 +61,7 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
         }
         UploadNationalIdBinding uploadBinding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.upload_national_id, null, false);
         uploadBinding.uploadNow.setOnClickListener(this);
+        uploadBinding.nextIcon.setOnClickListener(this);
         sectionsAdapter.addHeader(uploadBinding.getRoot());
     }
 
@@ -119,6 +120,9 @@ public class HomeFragment extends NoonFragment implements View.OnClickListener{
             Toast.makeText(getContext(), "User Profile Clicked", Toast.LENGTH_SHORT).show();
         }else if (v.getId()==R.id.upload_now){
             Toast.makeText(getContext(), "Upload now Clicked", Toast.LENGTH_SHORT).show();
+        }else if (v.getId()==R.id.next_icon){
+            Toast.makeText(getContext(), "Next Icon Clicked", Toast.LENGTH_SHORT).show();
         }
+
     }
 }
