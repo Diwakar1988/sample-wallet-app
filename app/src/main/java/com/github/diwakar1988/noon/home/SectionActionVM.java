@@ -12,13 +12,6 @@ public class SectionActionVM extends NoonViewModel<Section.Action> {
     }
 
     @Override
-    public void update(Section.Action item) {
-        this.item = item;
-        initialize();
-        notifyChange();
-    }
-
-    @Override
     public void initialize() {
 
     }

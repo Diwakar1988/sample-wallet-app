@@ -12,23 +12,15 @@ import com.github.diwakar1988.noon.pojo.Section;
 /**
  * Created by 'Diwakar Mishra' on 17,November,2018
  */
-public class SectionVM extends NoonViewModel<Section> implements ItemClickListener<Section.Action>{
+public class ListSectionVM extends NoonViewModel<Section> implements ItemClickListener<Section.Action>{
     private SectionActionAdapter listAdapter;
-    public SectionVM(Section item) {
+    public ListSectionVM(Section item) {
         super(item);
     }
 
     @Override
-    public void update(Section item) {
-        this.item = item;
-        initialize();
-        notifyChange();
-
-    }
-
-    @Override
     public void initialize() {
-        if (getItem().getType().toLowerCase().equals("list")){
+        if (getItem().isList()){
             listAdapter = new SectionActionAdapter(getItem().getActions(),this);
         }
     }

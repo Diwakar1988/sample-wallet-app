@@ -21,7 +21,11 @@ public abstract class NoonViewModel<T> extends BaseObservable implements ViewMod
      * called when ViewModel is going to update with new T(data)
      */
 
-    public abstract void update(T item);
+    public void update(T item){
+        this.item = item;
+        initialize();
+        notifyChange();
+    }
 
     /**
      * do all initialization here

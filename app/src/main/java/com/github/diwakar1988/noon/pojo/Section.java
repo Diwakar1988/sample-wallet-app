@@ -10,6 +10,8 @@ import java.util.List;
  * Created by 'Diwakar Mishra' on 16,November,2018
  */
 public class Section {
+    public static final String TYPE_CAROUSEL="carousel";
+    public static final String TYPE_LIST="list";
     @SerializedName("type")
     @Expose
     private String type;
@@ -23,10 +25,16 @@ public class Section {
     @Expose
     private List<Action> actions = new ArrayList<>();
 
+    public boolean isCarousel() {
+        return getType().toLowerCase().equals(TYPE_CAROUSEL);
+    }
+    public boolean isList() {
+        return getType().toLowerCase().equals(TYPE_LIST);
+    }
+
     public String getType() {
         return type;
     }
-
     public void setType(String type) {
         this.type = type;
     }

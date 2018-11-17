@@ -8,7 +8,8 @@ import android.view.ViewGroup;
 
 import com.github.diwakar1988.noon.R;
 import com.github.diwakar1988.noon.common.NoonViewHolder;
-import com.github.diwakar1988.noon.databinding.HomePageSectionItemBinding;
+import com.github.diwakar1988.noon.databinding.HomePageCarouselSectionItemBinding;
+import com.github.diwakar1988.noon.databinding.HomePageListSectionItemBinding;
 import com.github.diwakar1988.noon.pojo.Section;
 
 import java.util.ArrayList;
@@ -17,7 +18,9 @@ import java.util.List;
 /**
  * Created by 'Diwakar Mishra' on 17,November,2018
  */
-public class SectionsAdapter extends RecyclerView.Adapter<SectionsAdapter.SectionViewHolder>{
+public class SectionsAdapter extends RecyclerView.Adapter<NoonViewHolder<Section>>{
+    private static final int TYPE_CAROUSEL=1;
+    private static final int TYPE_LIST=2;
     private List<Section> sections;
 
     public SectionsAdapter(List<Section> sections) {
@@ -35,18 +38,23 @@ public class SectionsAdapter extends RecyclerView.Adapter<SectionsAdapter.Sectio
 
     @NonNull
     @Override
-    public SectionViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        HomePageSectionItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.home_page_section_item, parent, false);
-        return new SectionViewHolder(binding);
+    public NoonViewHolder<Section> onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        if (viewType==TYPE_CAROUSEL){
+            HomePageCarouselSectionItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.home_page_carousel_section_item, parent, false);
+            return new CarouselSectionViewHolder(binding);
+        }else {
+            HomePageListSectionItemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.home_page_list_section_item, parent, false);
+            return new ListSectionViewHolder(binding);
+        }
     }
 
     @Override
-    public void onBindViewHolder(@NonNull SectionViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull NoonViewHolder<Section> holder, int position) {
         holder.bind(sections.get(position));
     }
 
     @Override
-    public void onViewDetachedFromWindow(@NonNull SectionViewHolder holder) {
+    public void onViewDetachedFromWindow(@NonNull NoonViewHolder<Section> holder) {
         super.onViewDetachedFromWindow(holder);
         holder.unbind();
     }
@@ -56,10 +64,44 @@ public class SectionsAdapter extends RecyclerView.Adapter<SectionsAdapter.Sectio
         return sections.size();
     }
 
-    public static class SectionViewHolder extends NoonViewHolder<Section>{
+    @Override
+    public int getItemViewType(int position) {
+        if (sections.get(position).isCarousel()){
+            return TYPE_CAROUSEL;
+        }else if (sections.get(position).isList()){
+            return TYPE_LIST;
+        }
+        return super.getItemViewType(position);
+    }
 
-        private HomePageSectionItemBinding binding;
-        public SectionViewHolder(HomePageSectionItemBinding binding) {
+    public static class CarouselSectionViewHolder extends NoonViewHolder<Section>{
+
+        private HomePageCarouselSectionItemBinding binding;
+
+        public CarouselSectionViewHolder(HomePageCarouselSectionItemBinding binding) {
+            super(binding.getRoot());
+            this.binding = binding;
+            this.binding.tabLayout.setupWithViewPager(binding.viewPager, true);
+        }
+
+        @Override
+        public void bind(Section data) {
+            if (binding.getSectionVM()!=null){
+                binding.getSectionVM().update(data);
+            }else {
+                binding.setSectionVM(new CarouselSectionVM(data));
+            }
+        }
+
+        @Override
+        public void unbind() {
+            binding.getSectionVM().clean();
+        }
+    }
+    public static class ListSectionViewHolder extends NoonViewHolder<Section>{
+
+        private HomePageListSectionItemBinding binding;
+        public ListSectionViewHolder(HomePageListSectionItemBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
         }
@@ -69,7 +111,7 @@ public class SectionsAdapter extends RecyclerView.Adapter<SectionsAdapter.Sectio
             if (binding.getSectionVM()!=null){
                 binding.getSectionVM().update(data);
             }else {
-                binding.setSectionVM(new SectionVM(data));
+                binding.setSectionVM(new ListSectionVM(data));
             }
         }
 
