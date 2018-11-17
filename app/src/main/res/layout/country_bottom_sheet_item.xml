@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <data>
+
+        <import type="android.view.View" />
+
+        <variable
+            name="countryVM"
+            type="com.github.diwakar1988.noon.common.CountryBottomSheetItemAdapter.CountryItem" />
+    </data>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="horizontal" android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp"
+        android:background="@android:color/white"
+        android:clickable="true">
+        <TextView
+            android:layout_width="@dimen/height_country_flag"
+            android:layout_height="@dimen/height_country_flag"
+            android:textSize="@dimen/text_size_title"
+            tools:text="91"
+            android:text="@{countryVM.flag}"
+            android:background="@drawable/bg_country_flag"
+            android:layout_gravity="center_vertical"
+            android:gravity="center"/>
+        <TextView
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_size_title"
+            tools:text="India (+91)"
+            android:text="@{countryVM.title}"
+            android:textColor="@color/title"
+            android:textStyle="bold"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="8dp"
+            android:layout_marginStart="8dp"/>
+        <CheckBox
+            android:id="@+id/select_checkbox"
+            android:layout_gravity="center_vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:button="@drawable/bg_radio_btn"
+            app:select="@{countryVM.selected}"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:clickable="false"/>
+    </LinearLayout>
+</layout>

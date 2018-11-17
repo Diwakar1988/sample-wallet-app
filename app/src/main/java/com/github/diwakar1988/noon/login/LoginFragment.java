@@ -15,7 +15,7 @@ import com.github.diwakar1988.noon.databinding.FragmentLoginBinding;
 /**
  * Created by 'Diwakar Mishra' on 17,November,2018
  */
-public class LoginFragment extends NoonFragment {
+public class LoginFragment extends NoonFragment{
     private FragmentLoginBinding binding;
     public static LoginFragment newInstance(){
         return new LoginFragment();
@@ -31,6 +31,9 @@ public class LoginFragment extends NoonFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        binding.phoneNumberView.hidePhoneCodeSpinner();
+        binding.phoneNumberView.setCountryCode("+971");
+        binding.phoneNumberView.setPhoneCode("55");
     }
 
     @Override

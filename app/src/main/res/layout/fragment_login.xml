@@ -50,18 +50,27 @@
             android:layout_marginStart="16dp"
             android:textStyle="bold"
             android:layout_below="@+id/toolbar"/>
-        <View
-            android:id="@+id/number_divider"
+        <com.github.diwakar1988.noon.common.PhoneNumberView
+            android:id="@+id/phone_number_view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/vertical_divider"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_below="@+id/tv_number"/>
+        <View
+            android:id="@+id/number_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/vertical_divider"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/phone_number_view"/>
         <TextView
             android:id="@+id/tv_password"
             android:layout_width="wrap_content"
@@ -76,18 +85,27 @@
             android:textStyle="bold"
             android:layout_below="@+id/number_divider"/>
 
-        <View
-            android:id="@+id/password_divider"
+        <com.github.diwakar1988.noon.common.PasswordView
+            android:id="@+id/password_view"
             android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@drawable/vertical_divider"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="16dp"
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_below="@+id/tv_password"/>
+        <View
+            android:id="@+id/password_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@drawable/vertical_divider"
+            android:layout_marginTop="4dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_below="@+id/password_view"/>
         <TextView
             android:id="@+id/tv_forgot_password"
             android:layout_width="wrap_content"
