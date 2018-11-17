@@ -3,7 +3,9 @@ package com.github.diwakar1988.noon.common;
 import android.content.Context;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.Nullable;
+import android.text.Editable;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +20,7 @@ import com.github.diwakar1988.noon.databinding.PasswordBinding;
  */
 public class PasswordView extends FrameLayout implements View.OnClickListener {
     private PasswordBinding binding;
+    private OnInputChangeListener onInputChangeListener;
     public PasswordView(Context context) {
         super(context);
         init();
@@ -36,6 +39,24 @@ public class PasswordView extends FrameLayout implements View.OnClickListener {
     private void init() {
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.password,null,false);
         binding.show.setOnClickListener(this);
+        binding.passwordInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (getOnInputChangeListener()!=null){
+                    getOnInputChangeListener().onInputChanged();
+                }
+            }
+        });
         addView(binding.getRoot());
     }
 
@@ -43,6 +64,13 @@ public class PasswordView extends FrameLayout implements View.OnClickListener {
         return binding.passwordInput.getText().toString();
     }
 
+    public void setOnInputChangeListener(OnInputChangeListener onInputChangeListener) {
+        this.onInputChangeListener = onInputChangeListener;
+    }
+
+    public OnInputChangeListener getOnInputChangeListener() {
+        return onInputChangeListener;
+    }
     @Override
     public void onClick(View view) {
         if (view==binding.show){

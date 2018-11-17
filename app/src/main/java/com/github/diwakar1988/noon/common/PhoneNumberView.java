@@ -11,6 +11,8 @@ import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.PopupMenu;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -29,7 +31,7 @@ import java.util.List;
  */
 public class PhoneNumberView extends FrameLayout implements View.OnClickListener {
     private PhoneNumberBinding binding;
-
+    private OnInputChangeListener onInputChangeListener;
     public PhoneNumberView(Context context) {
         super(context);
         init();
@@ -49,6 +51,24 @@ public class PhoneNumberView extends FrameLayout implements View.OnClickListener
         binding = DataBindingUtil.inflate(LayoutInflater.from(getContext()), R.layout.phone_number,null,false);
         binding.countryCode.setOnClickListener(this);
         binding.phoneCode.setOnClickListener(this);
+        binding.numberInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                if (getOnInputChangeListener()!=null){
+                    getOnInputChangeListener().onInputChanged();
+                }
+            }
+        });
         addView(binding.getRoot());
     }
 
@@ -74,6 +94,14 @@ public class PhoneNumberView extends FrameLayout implements View.OnClickListener
         binding.phoneCode.setText(code);
     }
 
+    public void setOnInputChangeListener(OnInputChangeListener onInputChangeListener) {
+        this.onInputChangeListener = onInputChangeListener;
+    }
+
+    public OnInputChangeListener getOnInputChangeListener() {
+        return onInputChangeListener;
+    }
+
     @Override
     public void onClick(View view) {
         if (view==binding.countryCode){
@@ -96,6 +124,9 @@ public class PhoneNumberView extends FrameLayout implements View.OnClickListener
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 binding.phoneCode.setText(item.getTitle());
+                if (getOnInputChangeListener()!=null){
+                    getOnInputChangeListener().onInputChanged();
+                }
                 return true;
             }
         });
@@ -129,6 +160,9 @@ public class PhoneNumberView extends FrameLayout implements View.OnClickListener
                 }
                 PhoneNumberView.this.binding.countryCode.setText(item.getPhoneCode());
                 PhoneNumberView.this.binding.countryCode.setTag(item);
+                if (getOnInputChangeListener()!=null){
+                    getOnInputChangeListener().onInputChanged();
+                }
             }
         }));
 
@@ -150,7 +184,7 @@ public class PhoneNumberView extends FrameLayout implements View.OnClickListener
         });
     }
     private List<CountryBottomSheetItemAdapter.CountryItem> createBottomSheetItems(Context context) {
-        //we can use our CountryUtils when there are multiple countries but for DEMO I am adding only 3 countries
+        //we can use our CountryUtils when there are multiple countries but for DEMO I am adding only 3 countries here
         ArrayList<CountryBottomSheetItemAdapter.CountryItem> items = new ArrayList<>();
         items.add(new CountryBottomSheetItemAdapter.CountryItem("\uD83C\uDDE6\uD83C\uDDEA", "AE","United Arab Emirates", "+971"));
         items.add(new CountryBottomSheetItemAdapter.CountryItem("\uD83C\uDDF8\uD83C\uDDE6", "SA","Saudi Arabia", "+966"));
