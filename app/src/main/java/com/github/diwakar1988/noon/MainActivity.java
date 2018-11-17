@@ -2,8 +2,11 @@ package com.github.diwakar1988.noon;
 
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,7 +23,7 @@ import com.github.diwakar1988.noon.utils.Utils;
  * Created by 'Diwakar Mishra' on 16,November,2018
  */
 
-public class MainActivity extends NoonBaseActivity implements ClientConfigurationService.OnClientConfigurationsLoadListener {
+public class MainActivity extends NoonBaseActivity implements ClientConfigurationService.OnClientConfigurationsLoadListener, BottomNavigationView.OnNavigationItemSelectedListener {
 
     private ActivityMainBinding binding;
     private ToolbarActionsAdapter toolbarActionsAdapter;
@@ -31,7 +34,6 @@ public class MainActivity extends NoonBaseActivity implements ClientConfiguratio
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        binding.collapsingToolbar.setScrimAnimationDuration(0);
         binding.profileImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -46,6 +48,8 @@ public class MainActivity extends NoonBaseActivity implements ClientConfiguratio
 
         //for demo(and time saving) only adding single fragment otherwise we can add here a view pager of fragments also
         NavigationManager.getInstance().addFragment(HomeFragment.newInstance(), false);
+
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -77,5 +81,28 @@ public class MainActivity extends NoonBaseActivity implements ClientConfiguratio
     protected void onDestroy() {
         super.onDestroy();
         binding.mainActions.setAdapter(null);
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+        switch (menuItem.getItemId()){
+            case R.id.action_home:
+                Toast.makeText(this, String.format("%s clicked",menuItem.getTitle()), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_send:
+                Toast.makeText(this, String.format("%s clicked",menuItem.getTitle()), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_pay_qr:
+                Toast.makeText(this, String.format("%s clicked",menuItem.getTitle()), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_offers:
+                Toast.makeText(this, String.format("%s clicked",menuItem.getTitle()), Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.action_wallet:
+                Toast.makeText(this, String.format("%s clicked",menuItem.getTitle()), Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+        return true;
     }
 }
