@@ -79,19 +79,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-               android:background="@drawable/vertical_divider"/>
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/bottom_navigation"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/bnv_height"
-                app:itemBackground="@android:color/white"
+                android:background="@android:color/white"
                 app:itemIconTint="@color/bnv_tab_icon_foreground"
                 app:itemTextColor="@color/bnv_tab_text_foreground"
                 app:labelVisibilityMode="labeled"
-                app:menu="@menu/bottom_navigation" />
+                app:menu="@menu/bottom_navigation"
+                app:elevation="16dp"/>
 
         </LinearLayout>
     </android.support.design.widget.CoordinatorLayout>
