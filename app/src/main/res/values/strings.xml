@@ -25,6 +25,7 @@
     <string name="msg_sign_up">New to noonPay? <B><font color="black">Sign Up</font></B></string>
     <string name="msg_sign_in">Already have an account? <B><font color="black">Sign In</font></B></string>
     <string name="show">Show</string>
+    <string name="hide">Hide</string>
     <string name="enter_password">Enter Password</string>
     <string name="hint_mobile_number">10 digit mobile number</string>
     <string name="signing_in">Signing In...</string>
@@ -38,6 +39,6 @@
     <string name="verify_your_mobile">Verify your mobile</string>
     <string name="submit_code">Submit Code</string>
     <string name="didnt_receive">Didn\'t receive the code? <B><font color="black">Resend Code</font></B></string>
-    <string name="otp_description">We have sent a 4 digit code to your\nphone number <font color="black">******%s</font></string>
+    <string name="otp_description">We have sent a 4 digit code to your\nphone number <font color="#000000">******%s</font></string>
     <string name="sending">Sending...</string>
 </resources>

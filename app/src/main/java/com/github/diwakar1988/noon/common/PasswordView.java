@@ -79,12 +79,17 @@ public class PasswordView extends FrameLayout implements View.OnClickListener {
     }
     private void showHidePassword() {
         EditText et = binding.passwordInput;
+        if (et.getText().toString().trim().length()==0){
+            return;
+        }
         if (et.getInputType()== InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD){
             //hide password
+            binding.show.setText(R.string.show);
             et.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }else{
             //show password
             et.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            binding.show.setText(R.string.hide);
         }
         et.setSelection(et.length());
     }
