@@ -1,5 +1,6 @@
 package com.github.diwakar1988.noon.net;
 
+import com.github.diwakar1988.noon.pojo.OTP;
 import com.google.gson.reflect.TypeToken;
 
 import okhttp3.MediaType;
@@ -9,7 +10,7 @@ import okhttp3.RequestBody;
 /**
  * Created by 'Diwakar Mishra' on 16,November,2018
  */
-public class LoginService extends BaseApiService<String> {
+public class LoginService extends BaseApiService<OTP> {
 
     public static class RequestData {
         public String phoneCode;
@@ -21,6 +22,7 @@ public class LoginService extends BaseApiService<String> {
     public LoginService(RequestData data) {
         this.data = data;
     }
+
     @Override
     public Request request() {
         //Since our server is a mock server this part is only for demo
@@ -32,7 +34,8 @@ public class LoginService extends BaseApiService<String> {
     }
 
     @Override
-    public String parse(String response) {
-        return getGSONParser().fromJson(response,String.class);
+    public OTP parse(String response) {
+        return getGSONParser().fromJson(response,OTP.class);
     }
+
 }

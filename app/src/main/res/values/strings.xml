@@ -26,4 +26,7 @@
     <string name="show">Show</string>
     <string name="enter_password">Enter Password</string>
     <string name="hint_mobile_number">10 digit mobile number</string>
+    <string name="signing_in">Signing In...</string>
+    <string name="registering">Registering...</string>
+    <string name="validating">Validating...</string>
 </resources>
