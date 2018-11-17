@@ -93,7 +93,7 @@ public class LoginFragment extends NoonFragment implements OnInputChangeListener
             @Override
             public void onFail(ApiServiceException e) {
                 hideProgress();
-                Toast.makeText(getContext(), String.format("Error, please try again. Details= %s" + e), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), String.format("Error, please try again. Details= %s" , e), Toast.LENGTH_SHORT).show();
             }
 
             @Override

@@ -93,7 +93,7 @@ public class SignUpFragment extends NoonFragment implements OnInputChangeListene
 
     private void signIn() {
         showProgress(getString(R.string.registering));
-        RegistrationService.RequestData data = new RegistrationService.RequestData();
+        final RegistrationService.RequestData data = new RegistrationService.RequestData();
         data.countryCode = binding.phoneNumberView.getCountryCode();
         data.phoneCode = binding.phoneNumberView.getPhoneCode();
         data.number = binding.phoneNumberView.getNumber().trim();
@@ -103,14 +103,14 @@ public class SignUpFragment extends NoonFragment implements OnInputChangeListene
             @Override
             public void onFail(ApiServiceException e) {
                 hideProgress();
-                Toast.makeText(getContext(), String.format("Error, please try again. Details= %s" + e), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), String.format("Error, please try again. Details= %s" , e), Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onSuccess(OTP response) {
                 hideProgress();
                 //show OTP screen here
-
+                NavigationManager.getInstance().addFragment(ValidateOTPFragment.newInstance(data),true);
             }
         });
     }

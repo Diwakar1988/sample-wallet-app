@@ -1,5 +1,8 @@
 package com.github.diwakar1988.noon.net;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.github.diwakar1988.noon.pojo.OTP;
 
 import okhttp3.MediaType;
@@ -11,12 +14,49 @@ import okhttp3.RequestBody;
  */
 public class RegistrationService extends BaseApiService<OTP> {
 
-    public static class RequestData {
+    public static class RequestData implements Parcelable{
         public String countryCode;
         public String phoneCode;
         public String number;
         public String password;
         public String email;
+
+        public RequestData() {
+        }
+
+        protected RequestData(Parcel in) {
+            countryCode = in.readString();
+            phoneCode = in.readString();
+            number = in.readString();
+            password = in.readString();
+            email = in.readString();
+        }
+
+        public static final Creator<RequestData> CREATOR = new Creator<RequestData>() {
+            @Override
+            public RequestData createFromParcel(Parcel in) {
+                return new RequestData(in);
+            }
+
+            @Override
+            public RequestData[] newArray(int size) {
+                return new RequestData[size];
+            }
+        };
+
+        @Override
+        public int describeContents() {
+            return 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel parcel, int i) {
+            parcel.writeString(countryCode);
+            parcel.writeString(phoneCode);
+            parcel.writeString(number);
+            parcel.writeString(password);
+            parcel.writeString(email);
+        }
     }
     private RequestData data;
 

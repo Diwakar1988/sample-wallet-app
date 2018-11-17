@@ -35,7 +35,7 @@ public class LoginService extends BaseApiService<String> {
 
     @Override
     public String parse(String response) {
-        return getGSONParser().fromJson(response,String.class);
+        return response;
     }
 
 }
