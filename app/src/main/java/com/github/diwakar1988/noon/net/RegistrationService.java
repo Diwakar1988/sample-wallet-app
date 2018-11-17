@@ -1,5 +1,7 @@
 package com.github.diwakar1988.noon.net;
 
+import com.github.diwakar1988.noon.pojo.OTP;
+
 import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.RequestBody;
@@ -7,10 +9,10 @@ import okhttp3.RequestBody;
 /**
  * Created by 'Diwakar Mishra' on 16,November,2018
  */
-public class RegistrationService extends BaseApiService<String> {
+public class RegistrationService extends BaseApiService<OTP> {
 
     public static class RequestData {
-        public String countryISO;
+        public String countryCode;
         public String phoneCode;
         public String number;
         public String password;
@@ -32,7 +34,7 @@ public class RegistrationService extends BaseApiService<String> {
     }
 
     @Override
-    public String parse(String response) {
-        return getGSONParser().fromJson(response,String.class);
+    public OTP parse(String response) {
+        return getGSONParser().fromJson(response,OTP.class);
     }
 }

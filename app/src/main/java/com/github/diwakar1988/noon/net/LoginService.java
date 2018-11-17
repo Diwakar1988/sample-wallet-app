@@ -10,7 +10,7 @@ import okhttp3.RequestBody;
 /**
  * Created by 'Diwakar Mishra' on 16,November,2018
  */
-public class LoginService extends BaseApiService<OTP> {
+public class LoginService extends BaseApiService<String> {
 
     public static class RequestData {
         public String phoneCode;
@@ -34,8 +34,8 @@ public class LoginService extends BaseApiService<OTP> {
     }
 
     @Override
-    public OTP parse(String response) {
-        return getGSONParser().fromJson(response,OTP.class);
+    public String parse(String response) {
+        return getGSONParser().fromJson(response,String.class);
     }
 
 }
