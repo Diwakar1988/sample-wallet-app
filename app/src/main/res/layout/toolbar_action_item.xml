@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <import type="android.view.View" />
 
@@ -20,14 +20,13 @@
         android:clickable="true"
         android:background="?attr/selectableItemBackground"
         android:onClick="@{action::clicked}">
+
         <de.hdodenhof.circleimageview.CircleImageView
-            xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/profile_image"
             android:layout_width="@dimen/size_toolbar_action_icons"
             android:layout_height="@dimen/size_toolbar_action_icons"
-            android:src="@drawable/ic_noon_logo"
-            app:civ_border_width="1dp"
-            app:civ_border_color="@color/gray"
+            tools:src="@drawable/ic_send"
+            android:src="@{action.iconDrawable}"
             android:layout_gravity="center_horizontal"
             android:layout_marginBottom="3dp"/>
         <TextView

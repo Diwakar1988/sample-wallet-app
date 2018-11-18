@@ -6,35 +6,35 @@
         android:enabled="true"
         android:icon="@drawable/ic_noon_logo"
         android:title="@string/home"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="0"/>
     <item
         android:id="@+id/action_send"
         android:enabled="true"
-        android:icon="@drawable/ic_noon_logo"
+        android:icon="@drawable/ic_send"
         android:title="@string/send"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="1"/>
     <item
         android:id="@+id/action_pay_qr"
         android:enabled="true"
-        android:icon="@drawable/ic_noon_logo"
+        android:icon="@drawable/ic_qr_code"
         android:title="@string/pay_qr"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="2"/>
     <item
         android:id="@+id/action_offers"
         android:enabled="true"
-        android:icon="@drawable/ic_noon_logo"
+        android:icon="@drawable/ic_offer"
         android:title="@string/offers"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="3"/>
     <item
         android:id="@+id/action_wallet"
         android:enabled="true"
-        android:icon="@drawable/ic_noon_logo"
+        android:icon="@drawable/ic_wallet"
         android:title="@string/my_wallet"
-        android:showAsAction="ifRoom|withText"
+        app:showAsAction="ifRoom|withText"
         android:orderInCategory="4"/>
 
 </menu>

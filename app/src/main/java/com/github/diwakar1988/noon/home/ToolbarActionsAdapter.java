@@ -2,16 +2,21 @@ package com.github.diwakar1988.noon.home;
 
 import android.content.Context;
 import android.databinding.DataBindingUtil;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.LayerDrawable;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.github.diwakar1988.noon.NoonApplication;
 import com.github.diwakar1988.noon.R;
 import com.github.diwakar1988.noon.common.NoonViewHolder;
-import com.github.diwakar1988.noon.common.NoonViewModel;
 import com.github.diwakar1988.noon.common.ViewModel;
 import com.github.diwakar1988.noon.databinding.ToolbarActionItemBinding;
 
@@ -44,6 +49,15 @@ public class ToolbarActionsAdapter extends RecyclerView.Adapter<ToolbarActionsAd
             return type;
         }
 
+        public Drawable getIconDrawable(){
+            Drawable[]layer;
+            if (getIconRes()>0){
+                layer = new Drawable[]{new ColorDrawable(Color.WHITE),ContextCompat.getDrawable(NoonApplication.getInstance(),getIconRes())};
+            }else{
+                layer = new Drawable[]{new ColorDrawable(Color.WHITE)};
+            }
+            return new LayerDrawable(layer);
+        }
         public int getIconRes() {
             return iconRes;
         }
@@ -65,10 +79,10 @@ public class ToolbarActionsAdapter extends RecyclerView.Adapter<ToolbarActionsAd
 
     public ToolbarActionsAdapter(Context context) {
         items = new ArrayList<>();
-        items.add(new Action(ActionType.ADD_MONEY, R.drawable.ic_noon_logo,context.getString(R.string.add_money)));
-        items.add(new Action(ActionType.SEND_MONEY, R.drawable.ic_noon_logo,context.getString(R.string.send_money)));
-        items.add(new Action(ActionType.SCAN_QR, R.drawable.ic_noon_logo,context.getString(R.string.scan_qr)));
-        items.add(new Action(ActionType.REQUEST_MONEY, R.drawable.ic_noon_logo,context.getString(R.string.request_money)));
+        items.add(new Action(ActionType.ADD_MONEY, R.drawable.ic_add,context.getString(R.string.add_money)));
+        items.add(new Action(ActionType.SEND_MONEY, R.drawable.ic_send,context.getString(R.string.send_money)));
+        items.add(new Action(ActionType.SCAN_QR, R.drawable.ic_qr_code,context.getString(R.string.scan_qr)));
+        items.add(new Action(ActionType.REQUEST_MONEY, R.drawable.ic_arrow_downward,context.getString(R.string.request_money)));
     }
 
     @NonNull
