@@ -32,4 +32,4 @@ I have used some third party libraries(we can develop our own libs) for fast ui 
 2. CircleImageView				https://github.com/hdodenhof/CircleImageView
 3. GSON	                        https://github.com/google/gson
 
-APK link: https://drive.google.com/drive/folders/19XO2NReYa8XeaiU_1g2G_tVH4d3E8ZEi?usp=sharing
+APK link: 
