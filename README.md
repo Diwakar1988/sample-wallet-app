@@ -1,7 +1,7 @@
 Design Details:
-1. I have used MVVM design pattern here for scalability, maintainability and to provide good code coverage.
+1. I have used MVVM design pattern here for scalability, maintainability and to provide good code coverage.(On HomeScreen MVVM used to demonstrate usage)
 2. Followed SOLID design principles 
-3. Develop most of the modules(UI or non-UI) generic for scalability
+3. Developed most of the modules(UI or non-UI) generic for scalability
 
 Prerequisites:
 1. Android studio 3.0 and above
