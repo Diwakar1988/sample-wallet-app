@@ -56,11 +56,6 @@ public class ClientConfigurationService extends BaseApiService<ClientConfigurati
             @Override
             public void onFail(ApiServiceException e) {
                 Log.d(ClientConfigurationService.class.getSimpleName(),"***** ClientConfigurationService failed, ERROR="+e);
-                //loadFromServer default/local one
-                ClientConfigurations localConfig=AppPreferences.getInstance().getConfigurations();
-                if (listener!=null){
-                    listener.onClientConfigurationsLoaded(localConfig);
-                }
             }
 
             @Override
@@ -68,6 +63,8 @@ public class ClientConfigurationService extends BaseApiService<ClientConfigurati
                 Log.d(ClientConfigurationService.class.getSimpleName(),"***** ClientConfigurationService Success");
                 //save fetched configs in db for later use
                 AppPreferences.getInstance().saveConfigurations(response);
+                //cache latest config to avoid app preference reading
+                NoonApplication.getInstance().setClientConfigurations(response);
                 LocalBroadcastManager.getInstance(NoonApplication.getInstance()).sendBroadcast(new Intent(ClientConfigReceiver.ACTION_CONFIG_UPDATED));
                 if (listener!=null){
                     listener.onClientConfigurationsLoaded(response);

@@ -23,4 +23,7 @@ public class SectionActionVM extends NoonViewModel<Section.Action> {
     public String getTitle(){
         return getItem().getTitle();
     }
+    public boolean havingOffer(){
+        return getItem().havingOffer();
+    }
 }

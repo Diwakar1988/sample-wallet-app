@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.diwakar1988.noon.NoonApplication;
 import com.github.diwakar1988.noon.R;
 import com.github.diwakar1988.noon.common.NoonFragment;
 import com.github.diwakar1988.noon.databinding.FragmentHomeBinding;
@@ -38,16 +39,22 @@ public class HomeFragment extends NoonFragment{
             super.onReceive(context, intent);
             switch (intent.getAction()){
                 case ACTION_CONFIG_UPDATED:
-                    fillSections(AppPreferences.getInstance().getConfigurations());
+                    fillSections(NoonApplication.getInstance().getClientConfigurations());
                     break;
             }
         }
     };
 
     private void fillSections(ClientConfigurations configurations) {
-        sectionsAdapter = new SectionsAdapter(configurations.getSections());
+        if (sectionsAdapter==null){
+            sectionsAdapter = new SectionsAdapter(configurations.getSections());
+            binding.sections.setAdapter(sectionsAdapter);
+
+        }else{
+            binding.sections.removeAllViews();
+            sectionsAdapter.setSections(configurations.getSections());
+        }
         addUploadNationalIdViewIfRequired();
-        binding.sections.setAdapter(sectionsAdapter);
         binding.progressBar.setVisibility(View.GONE);
     }
 
@@ -79,7 +86,7 @@ public class HomeFragment extends NoonFragment{
         verticalDecoration.setDrawable(verticalDivider);
         binding.sections.addItemDecoration(verticalDecoration);
 
-        ClientConfigurations configurations = AppPreferences.getInstance().getConfigurations();
+        ClientConfigurations configurations = NoonApplication.getInstance().getClientConfigurations();
         if (configurations!=null){
             fillSections(configurations);
         }else{

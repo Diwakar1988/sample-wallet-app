@@ -43,4 +43,5 @@
     <string name="sending">Sending...</string>
     <string name="biometric_title">Authenticate</string>
     <string name="biometric_subtitle">Access your noonPay Wallet</string>
+    <string name="offer">Offer</string>
 </resources>

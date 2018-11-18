@@ -69,7 +69,7 @@
         "title": "Dubai\nCares",
         "description": "",
         "icon": "url",
-        "hasOffer": true
+        "hasOffer": false
       },
         {
           "id": 2,
@@ -83,7 +83,7 @@
           "title": "Noon\nDubai",
           "description": "",
           "icon": "url",
-          "hasOffer": true
+          "hasOffer": false
         },
         {
           "id": 4,

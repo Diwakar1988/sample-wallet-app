@@ -113,7 +113,7 @@ public class Section {
             this.icon = icon;
         }
 
-        public Boolean getHasOffer() {
+        public Boolean havingOffer() {
             return hasOffer;
         }
 

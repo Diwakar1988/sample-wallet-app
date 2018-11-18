@@ -11,7 +11,6 @@ public class UserAuthActivity extends NoonBaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        ClientConfigurationService.loadFromServer(null);
         NavigationManager.initialize(this);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_auth);

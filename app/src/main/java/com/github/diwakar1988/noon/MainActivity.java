@@ -30,7 +30,6 @@ public class MainActivity extends NoonBaseActivity implements ClientConfiguratio
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         NavigationManager.initialize(this);
-        ClientConfigurationService.loadFromServer(this);
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
@@ -56,6 +55,8 @@ public class MainActivity extends NoonBaseActivity implements ClientConfiguratio
     protected void onResume() {
         super.onResume();
         checkInternet();
+        //check config change on every foreground run, we can optimize here to put restrictions like fetch config in every 12 ours etc.
+        ClientConfigurationService.loadFromServer(this);
     }
 
     private void checkInternet() {
