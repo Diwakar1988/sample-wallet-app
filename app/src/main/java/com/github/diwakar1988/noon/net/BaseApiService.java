@@ -6,6 +6,7 @@ import com.github.diwakar1988.noon.utils.AsyncUtil;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.lang.ref.SoftReference;
 import java.lang.ref.WeakReference;
 import java.lang.reflect.Type;
 
@@ -35,7 +36,7 @@ public abstract class BaseApiService<T> implements IApiService<T>{
     }
 
     private Call call;
-    private WeakReference<APIResponseListener<T>> listener;
+    private APIResponseListener<T> listener;
 
     @Override
     public final void cancel() {
@@ -46,7 +47,7 @@ public abstract class BaseApiService<T> implements IApiService<T>{
 
     @Override
     public final void execute(final APIResponseListener<T> listener) {
-        this.listener = new WeakReference<>(listener);
+        this.listener = listener;
         AsyncUtil.run(this);
     }
 
@@ -76,8 +77,8 @@ public abstract class BaseApiService<T> implements IApiService<T>{
         AsyncUtil.runOnUi(new Runnable() {
             @Override
             public void run() {
-                if (listener.get()!=null){
-                    listener.get().onFail(e);
+                if (listener!=null){
+                    listener.onFail(e);
                 }
             }
         });
@@ -89,8 +90,8 @@ public abstract class BaseApiService<T> implements IApiService<T>{
         AsyncUtil.runOnUi(new Runnable() {
             @Override
             public void run() {
-                if (listener.get()!=null){
-                    listener.get().onSuccess(response);
+                if (listener!=null){
+                    listener.onSuccess(response);
                 }
             }
         });
